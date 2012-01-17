@@ -1,0 +1,25 @@
+<div id="Navigation-Meta-Inner">
+	<div id="header-login">
+	<?php if (Zend_Auth::getInstance()->hasIdentity()) {
+			$nav = $this->navigation()->findOneByLabel('Meta Menu');
+			$options = array(
+					'ulClass' => 'Navigation Navigation-Meta nav',
+					'maxDepth' => 0,
+			);
+			echo $this->navigation()
+			->menu()
+			->renderMenu($nav, $options);
+		} else { ?>
+		<?=$this->form->render() ?>
+		<hr class="clear"></hr>
+		<?php
+		if (!empty($this->errors)) {
+			foreach ($this->errors as $error) {
+				?><p class="error"><?=T::_($error) ?></p><?php
+			}
+		}
+		?>
+	<?php } ?>
+		<hr class="clear"></hr>
+	</div>
+</div>

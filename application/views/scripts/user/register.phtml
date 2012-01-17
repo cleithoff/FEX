@@ -1,0 +1,13 @@
+<h1><?=T::_('Register') ?></h1>
+<?php
+	if ($this->success) {
+		?><p><?= T::_('RegisterSuccess') ?></p><?php
+	} else {
+		echo $this->form->render();
+		if (!empty($this->errors)) {
+			foreach ($this->errors as $error) {
+				?><p class="error"><?=T::_($error) ?></p><?php
+			}
+		}
+	}
+?>

@@ -1,0 +1,89 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=key(Zend_Locale::getDefault()) ?>" lang="<?=key(Zend_Locale::getDefault()) ?>">
+	<head>
+		<?php echo $this->headTitle() ?>
+		<?php echo $this->headMeta() ?>
+		<?php echo $this->headLink() ?>
+
+		<?php echo $this->jQuery(); ?>
+
+		<?php echo $this->headScript() ?>
+
+	</head>
+	<body class="page">
+		<div id="header">
+			<div id="header-body">
+				<div class="Region Region-Header" id="Region-Header">
+					<p class="logo">
+						<a href="/"><img src="/img/pictures/accando-logo.png"></img></a>
+					</p>
+				</div>
+				<div class="floatright">
+					<div id="Navigation-Meta-Body">
+						<?=$this->action('login', 'user'); ?>
+					</div>
+				</div>
+				<div class="floatleft">
+					<div id="Navigation-Primary-Body">
+						<?php
+							$nav = $this->navigation()->findOneByLabel('Main Menu');
+							$options = array(
+									'ulClass' => 'Navigation Navigation-Primary nav',
+							);
+							echo $this->navigation()
+							->menu()
+							->renderMenu($nav, $options);
+						?>
+						<hr class="clear"></hr>
+					</div>
+				</div>
+			 </div>
+			<hr class="clear"></hr>
+		</div>
+		<div id="content">
+			<div id="Navigation-Secondary-Body">
+				<?php
+					if (
+							Zend_Controller_Front::getInstance()->getRequest()->getControllerName() != 'error'
+						&& Zend_Controller_Front::getInstance()->getRequest()->getControllerName() != 'index'
+					) {
+						$nav = $this->navigation()->findOneByController(Zend_Controller_Front::getInstance()->getRequest()->getControllerName()); //->findOneByAction('index');
+						$options = array(
+								'ulClass' => 'Navigation Navigation-Secondary nav',
+						);
+						echo $this->navigation()
+						->menu()
+						->renderMenu($nav, $options);
+					}
+				?>
+			</div>
+			<hr class="clear"></hr>
+			<div class="Region Region-Content" id="Region-Content">
+				<?php echo $this->layout()->content; ?>
+			</div>
+			<hr class="clear"></hr>
+		</div>
+		<div id="footer">
+			<div id="footer-body">
+				<div id="Navigation-Primary_Footer-Body">
+					<?php
+						$nav = $this->navigation()->findOneByLabel('Footer Menu');
+						$options = array(
+								'ulClass' => 'Navigation Navigation-Primary-Footer nav',
+								'renderParents' => true,
+						);
+						echo $this->navigation()
+						->menu()
+						->renderMenu($nav, $options);
+					?>
+					<hr class="clear"></hr>
+				</div>
+				<hr class="clear"></hr>
+			</div>
+			<hr class="clear"></hr>
+		</div>
+
+		<?php echo $this->fex(); ?>
+	</body>
+</html>
